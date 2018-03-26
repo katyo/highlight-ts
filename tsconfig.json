@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "declaration": true,
+    "removeComments": false,
+    "noUnusedLocals": true,
+    "importHelpers": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.core"
+    ]
+  },
+  "files": [
+    "src/hl/types.ts",
+    "src/hl/common.ts",
+    "src/hl/languages.ts",
+    "src/hl/compile.ts",
+    "src/hl/process.ts",
+    "src/hl/render/vdom.ts",
+    "src/hl/render/html.ts",
+    "src/index.ts"
+  ],
+  "include": [
+    "src/hl/languages/*.ts"
+  ]
+}

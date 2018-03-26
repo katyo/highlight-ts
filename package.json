@@ -1,0 +1,44 @@
+{
+  "name": "literium-highlight",
+  "version": "0.1.0",
+  "description": "Syntax highlighter module for Literium web-framework.",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "module": "es/index.js",
+  "scripts": {
+    "compile": "npm run compile-es && npm run compile-js",
+    "clean": "npm run clean-es && npm run clean-js",
+    "compile-es": "tsc --outDir es --module es6",
+    "clean-es": "rm -rf es",
+    "compile-js": "tsc --outDir .",
+    "clean-js": "rm -rf *.d.ts *.js *.js.map render highlight",
+    "prepublish": "npm run compile",
+    "test": "ts-node test/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/katyo/literium/tree/master/highlight"
+  },
+  "keywords": [
+    "hightlight",
+    "markup",
+    "render",
+    "virtual-dom",
+    "client",
+    "server",
+    "literium",
+    "framework"
+  ],
+  "author": "K. <kayo@illumium.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/katyo/literium/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.6",
+    "typescript": "^2.6.2"
+  },
+  "peerDependencies": {
+    "literium": "^0.1.0"
+  }
+}
