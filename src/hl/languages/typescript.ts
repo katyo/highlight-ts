@@ -39,6 +39,35 @@ const KEYWORDS: KeywordsDef = {
         'module console window document any number boolean string void Promise'
 };
 
+const ARROW_FUNCTION_MODE = {
+    className: 'function',
+    begin: '(\\(.*?\\)|' + IDENT_RE + ')\\s*=>', returnBegin: true,
+    end: '\\s*=>',
+    contains: [
+        {
+            className: 'params',
+            variants: [
+                {
+                    begin: IDENT_RE
+                },
+                {
+                    begin: /\(\s*\)/,
+                },
+                {
+                    begin: /\(/, end: /\)/,
+                    excludeBegin: true, excludeEnd: true,
+                    keywords: KEYWORDS,
+                    contains: [
+                        'self',
+                        C_LINE_COMMENT_MODE,
+                        C_BLOCK_COMMENT_MODE
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
 export const TypeScript: LanguageDef = {
     name: 'typescript',
     aliases: ['ts'],
@@ -79,34 +108,7 @@ export const TypeScript: LanguageDef = {
                 C_LINE_COMMENT_MODE,
                 C_BLOCK_COMMENT_MODE,
                 REGEXP_MODE,
-                {
-                    className: 'function',
-                    begin: '(\\(.*?\\)|' + IDENT_RE + ')\\s*=>', returnBegin: true,
-                    end: '\\s*=>',
-                    contains: [
-                        {
-                            className: 'params',
-                            variants: [
-                                {
-                                    begin: IDENT_RE
-                                },
-                                {
-                                    begin: /\(\s*\)/,
-                                },
-                                {
-                                    begin: /\(/, end: /\)/,
-                                    excludeBegin: true, excludeEnd: true,
-                                    keywords: KEYWORDS,
-                                    contains: [
-                                        'self',
-                                        C_LINE_COMMENT_MODE,
-                                        C_BLOCK_COMMENT_MODE
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
+                ARROW_FUNCTION_MODE
             ],
             relevance: 0
         },
@@ -125,7 +127,8 @@ export const TypeScript: LanguageDef = {
                     keywords: KEYWORDS,
                     contains: [
                         C_LINE_COMMENT_MODE,
-                        C_BLOCK_COMMENT_MODE
+                        C_BLOCK_COMMENT_MODE,
+                        ARROW_FUNCTION_MODE
                     ],
                     illegal: /["'\(]/
                 }
@@ -145,7 +148,8 @@ export const TypeScript: LanguageDef = {
                     keywords: KEYWORDS,
                     contains: [
                         C_LINE_COMMENT_MODE,
-                        C_BLOCK_COMMENT_MODE
+                        C_BLOCK_COMMENT_MODE,
+                        ARROW_FUNCTION_MODE
                     ],
                     illegal: /["'\(]/
                 }
