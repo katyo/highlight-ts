@@ -1,13 +1,7 @@
 import { Options, Renderer, LanguageName, KeywordGroup, CompiledKeywords, CompiledSyntaxDef, CompiledLanguageDef, Result } from './types';
 import { getLanguage, listLanguages } from './languages';
 
-// Regular expressions used throughout the highlight.js library.
-const fixMarkupRe = /((^(<[^>]+>|\t|)+|(?:\n)))/gm;
-
 /* Utility functions */
-function escape(value: string): string {
-    return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
 
 function testRe(re: RegExp | undefined, lexeme: string): boolean {
     const match = re && re.exec(lexeme);
@@ -74,7 +68,7 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
 
     function processKeywords() {
         if (!top.keywords) {
-            outText(escape(mode_buffer));
+            outText(mode_buffer);
             return;
         }
 
@@ -83,7 +77,7 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
         let match = top.lexemesRe.exec(mode_buffer);
 
         while (match) {
-            outText(escape(mode_buffer.substring(last_index, match.index)));
+            outText(mode_buffer.substring(last_index, match.index));
 
             // match keyword
             const match_str = (language as CompiledLanguageDef).case_insensitive ?
@@ -94,22 +88,22 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
             if (keyword_match) {
                 relevance += keyword_match[1];
                 openSpan(keyword_match[0]);
-                outText(escape(match[0]));
+                outText(match[0]);
                 closeSpan();
             } else {
-                outText(escape(match[0]));
+                outText(match[0]);
             }
             last_index = top.lexemesRe.lastIndex;
             match = top.lexemesRe.exec(mode_buffer);
         }
-        outText(escape(mode_buffer.substr(last_index)));
+        outText(mode_buffer.substr(last_index));
     }
 
     function processSubLanguage() {
         const explicit = typeof top.subLanguage == 'string';
 
         if (explicit && !getLanguage(top.subLanguage as LanguageName)) {
-            outText(escape(mode_buffer));
+            outText(mode_buffer);
             return;
         }
 
@@ -284,7 +278,7 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
             return {
                 language: lang,
                 relevance: 0,
-                value: render.text(escape(value))
+                value: render.text(value)
             };
         } else {
             throw e;
@@ -305,7 +299,7 @@ export function highlightAuto<Output>(options: Options, render: Renderer<Output>
     let result: Result<Output> = {
         language: '',
         relevance: 0,
-        value: render.text(escape(text))
+        value: render.text(text)
     };
 
     let second_best: Result<Output> = result;
@@ -329,6 +323,9 @@ export function highlightAuto<Output>(options: Options, render: Renderer<Output>
 
     return result;
 }
+
+// Regular expressions used throughout the highlight.js library.
+const fixMarkupRe = /((^(<[^>]+>|\t|)+|(?:\n)))/gm;
 
 /*
 Post-processing of the highlighted markup:
