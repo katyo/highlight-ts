@@ -1,4 +1,4 @@
-import { Options, Highlighter, Renderer, LanguageName, KeywordGroup, CompiledKeywords, CompiledSyntaxDef, CompiledLanguageDef, Result } from './types';
+import { Options, Renderer, LanguageName, KeywordGroup, CompiledKeywords, CompiledSyntaxDef, CompiledLanguageDef, Result } from './types';
 import { getLanguage, listLanguages } from './languages';
 
 // Regular expressions used throughout the highlight.js library.
@@ -89,11 +89,11 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
             const match_str = (language as CompiledLanguageDef).case_insensitive ?
                 match[0].toLowerCase() : match[0] as KeywordGroup;
             const keyword_match = (top.keywords as CompiledKeywords).hasOwnProperty(match_str) &&
-                (top.keywords as CompiledKeywords)[match_str];
+                (top.keywords as CompiledKeywords)[match_str as KeywordGroup];
 
             if (keyword_match) {
                 relevance += keyword_match[1];
-                openSpan(keyword_match[0] as KeywordGroup);
+                openSpan(keyword_match[0]);
                 outText(escape(match[0]));
                 closeSpan();
             } else {
@@ -355,10 +355,19 @@ const defaults: Options = {
     languages: undefined,
 };
 
-export function init<Output>(render: Renderer<Output>, custom_options: Partial<Options> = {}): Highlighter<Output> {
-    const options = { ...defaults, ...custom_options };
+export interface Highlighter<Output> {
+    render: Renderer<Output>;
+    options: Options;
+}
 
-    return (source: string, lang?: LanguageName | LanguageName[]) =>
-        typeof lang == 'string' ? highlight(options, render, lang, source) :
-            highlightAuto(options, render, source, lang);
+export function init<Output>(render: Renderer<Output>, options: Partial<Options> = {}): Highlighter<Output> {
+    return {
+        render,
+        options: { ...defaults, ...options }
+    };
+}
+
+export function process<Output>({ render, options }: Highlighter<Output>, source: string, lang?: LanguageName | LanguageName[]): Result<Output> {
+    return typeof lang == 'string' ? highlight(options, render, lang, source) :
+        highlightAuto(options, render, source, lang);
 }

@@ -216,10 +216,6 @@ export interface Options {
     languages?: LanguageName[];
 }
 
-export interface Highlighter<Output> {
-    (source: string, language?: LanguageName | LanguageName[]): Result<Output>;
-}
-
 // Supported keyword groups (classes)
 export type KeywordGroup
     = KeywordGroupGeneral

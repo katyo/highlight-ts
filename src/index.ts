@@ -6,6 +6,8 @@ export * from './hl/process';
 export * from './hl/render/vdom';
 export * from './hl/render/html';
 
+export * from './highlight';
+
 // programming modes
 export * from './hl/languages/cplusplus';
 export * from './hl/languages/d';
