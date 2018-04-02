@@ -110,7 +110,8 @@ export const CPlusPlus: LanguageDef = {
     aliases: ['c', 'cc', 'h', 'c++', 'h++', 'cpp', 'hpp'],
     keywords: CPP_KEYWORDS,
     illegal: '</',
-    contains: EXPRESSION_CONTAINS.concat([
+    contains: [
+        ...EXPRESSION_CONTAINS,
         PREPROCESSOR,
         {
             begin: '\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<', end: '>',
@@ -131,14 +132,15 @@ export const CPlusPlus: LanguageDef = {
                 { beginKeywords: 'new throw return else', end: /;/ }
             ],
             keywords: CPP_KEYWORDS,
-            contains: EXPRESSION_CONTAINS.concat([
+            contains: [
+                ...EXPRESSION_CONTAINS,
                 {
                     begin: /\(/, end: /\)/,
                     keywords: CPP_KEYWORDS,
                     contains: [...EXPRESSION_CONTAINS, 'self'],
                     relevance: 0
                 }
-            ]),
+            ],
             relevance: 0
         },
         {
@@ -180,5 +182,5 @@ export const CPlusPlus: LanguageDef = {
                 TITLE_MODE
             ]
         }
-    ])
+    ]
 };
