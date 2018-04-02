@@ -6,7 +6,7 @@ Description: TypeScript is a strict superset of JavaScript
 Category: scripting
 */
 
-import { KeywordsDef, LanguageDef } from '../types';
+import { KeywordsDef, SyntaxDefOrRef, LanguageDef } from '../types';
 import {
     APOS_STRING_MODE,
     QUOTE_STRING_MODE,
@@ -17,7 +17,7 @@ import {
     RE_STARTERS_RE,
     REGEXP_MODE,
     IDENT_RE,
-    TITLE_MODE,
+    TITLE_MODE as TITLE_MODE_,
 } from '../common';
 
 const KEYWORDS: KeywordsDef = {
@@ -39,9 +39,30 @@ const KEYWORDS: KeywordsDef = {
         'module console window document any number boolean string void Promise'
 };
 
-const ARROW_FUNCTION_MODE = {
+const TITLE_MODE = {
+    ...TITLE_MODE_,
+    begin: /[A-Za-z$_][0-9A-Za-z$_]*/
+};
+
+const PARAMS_CONTAINS: SyntaxDefOrRef[] = [
+    C_LINE_COMMENT_MODE,
+    C_BLOCK_COMMENT_MODE,
+];
+
+const PARAMS_MODE = {
+    className: 'params',
+    begin: /\(/, end: /\)/,
+    excludeBegin: true,
+    excludeEnd: true,
+    keywords: KEYWORDS,
+    contains: PARAMS_CONTAINS,
+    //illegal: /["'\(]/
+};
+
+const ARROW_FUNCTION_MODE: SyntaxDefOrRef = {
     className: 'function',
-    begin: '(\\(.*?\\)|' + IDENT_RE + ')\\s*=>', returnBegin: true,
+    begin: '(\\(.*?\\)|' + IDENT_RE + ')\\s*=>',
+    returnBegin: true,
     end: '\\s*=>',
     contains: [
         {
@@ -53,20 +74,13 @@ const ARROW_FUNCTION_MODE = {
                 {
                     begin: /\(\s*\)/,
                 },
-                {
-                    begin: /\(/, end: /\)/,
-                    excludeBegin: true, excludeEnd: true,
-                    keywords: KEYWORDS,
-                    contains: [
-                        'self',
-                        C_LINE_COMMENT_MODE,
-                        C_BLOCK_COMMENT_MODE
-                    ]
-                }
+                { ...PARAMS_MODE, className: undefined }
             ]
         }
     ]
 };
+
+PARAMS_CONTAINS.push(ARROW_FUNCTION_MODE);
 
 export const TypeScript: LanguageDef = {
     name: 'typescript',
@@ -118,20 +132,8 @@ export const TypeScript: LanguageDef = {
             keywords: KEYWORDS,
             contains: [
                 'self',
-                { ...TITLE_MODE, begin: /[A-Za-z$_][0-9A-Za-z$_]*/ },
-                {
-                    className: 'params',
-                    begin: /\(/, end: /\)/,
-                    excludeBegin: true,
-                    excludeEnd: true,
-                    keywords: KEYWORDS,
-                    contains: [
-                        C_LINE_COMMENT_MODE,
-                        C_BLOCK_COMMENT_MODE,
-                        ARROW_FUNCTION_MODE
-                    ],
-                    illegal: /["'\(]/
-                }
+                TITLE_MODE,
+                PARAMS_MODE,
             ],
             illegal: /%/,
             relevance: 0 // () => {} is more typical in TypeScript
@@ -140,19 +142,7 @@ export const TypeScript: LanguageDef = {
             beginKeywords: 'constructor', end: /\{/, excludeEnd: true,
             contains: [
                 'self',
-                {
-                    className: 'params',
-                    begin: /\(/, end: /\)/,
-                    excludeBegin: true,
-                    excludeEnd: true,
-                    keywords: KEYWORDS,
-                    contains: [
-                        C_LINE_COMMENT_MODE,
-                        C_BLOCK_COMMENT_MODE,
-                        ARROW_FUNCTION_MODE
-                    ],
-                    illegal: /["'\(]/
-                }
+                PARAMS_MODE,
             ]
         },
         { // prevent references like module.id from being higlighted as module definitions
@@ -164,8 +154,13 @@ export const TypeScript: LanguageDef = {
             beginKeywords: 'module', end: /\{/, excludeEnd: true
         },
         {
+            beginKeywords: 'namespace', end: /\{/, excludeEnd: true,
+            contains: [TITLE_MODE]
+        },
+        {
             beginKeywords: 'interface', end: /\{/, excludeEnd: true,
-            keywords: 'interface extends'
+            keywords: 'interface extends',
+            contains: [TITLE_MODE]
         },
         {
             begin: /\$[(.]/ // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
