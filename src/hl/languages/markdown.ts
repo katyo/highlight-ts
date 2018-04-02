@@ -29,7 +29,7 @@ export const Markdown: LanguageDef = {
         // lists (indicators only)
         {
             className: 'bullet',
-            begin: '^([*+-]|(\\d+\\.))\\s+'
+            begin: '^\\s*([*+-]|(\\d+\\.))\\s+'
         },
         // strong segments
         {
@@ -98,7 +98,7 @@ export const Markdown: LanguageDef = {
             relevance: 10
         },
         {
-            begin: /^\[[^\n]+\]:/,
+            begin: /^\s*\[[^\n]+\]:/,
             returnBegin: true,
             contains: [
                 {
