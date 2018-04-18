@@ -14,6 +14,7 @@ export * from './languages/d';
 export * from './languages/haskell';
 export * from './languages/rust';
 export * from './languages/haxe';
+export * from './languages/java';
 export * from './languages/glsl';
 export * from './languages/lua';
 export * from './languages/lisp';
