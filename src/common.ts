@@ -1,5 +1,4 @@
-import { SyntaxDef } from './types';
-import { StringRegExp } from '../index';
+import { SyntaxDef, StringRegExp } from './types';
 
 // Common regexps
 export const IDENT_RE = '[a-zA-Z]\\w*';
