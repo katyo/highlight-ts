@@ -1,0 +1,27 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "src/*.ts",
+    "test/*.ts"
+  ],
+  "serve_files": [
+    "test-out.js"
+  ],
+  "before_tests": "npm run compile-test",
+  "on_exit": "npm run clean-test",
+  "launchers": {
+    "nodejs": {
+      "command": "mocha -r ts-node/register test/index.ts -R tap",
+      "protocol": "tap"
+    }
+  },
+  "browser_args": {
+    "chromium": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ]
+  },
+  "launch_in_ci": [ "firefox", "chromium", "nodejs" ],
+  "ignore_missing_launchers": true,
+  "launch_in_dev": [ "firefox", "chromium", "safari", "nodejs" ]
+}

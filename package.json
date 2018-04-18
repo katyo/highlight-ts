@@ -11,9 +11,13 @@
     "compile-es": "tsc --outDir es --module es6",
     "clean-es": "rm -rf es",
     "compile-js": "tsc --outDir .",
-    "clean-js": "rm -rf *.d.ts *.js *.js.map render hl",
+    "clean-js": "rm -rf *.d.ts *.js *.js.map render languages",
     "prepublish": "npm run compile",
-    "test": "ts-node test/index"
+    "compile-test": "browserify -d test/index.ts -p [ tsify --noImplicitAny ] -o test-out.js",
+    "clean-test": "rm -f test-out.js",
+    "test": "ts-node test/index",
+    "test-node": "mocha -r ts-node/register test/index.ts -R spec",
+    "test-dev": "testem"
   },
   "repository": {
     "type": "git",
@@ -33,6 +37,12 @@
   "devDependencies": {
     "@types/mocha": "^5.0.0",
     "@types/node": "^9.4.6",
+    "browserify": "^16.1.1",
+    "mocha": "^5.0.3",
+    "should": "^13.2.1",
+    "testem": "^2.0.0",
+    "ts-node": "^5.0.1",
+    "tsify": "^3.0.3",
     "typescript": "^2.8.1"
   },
   "dependencies": {

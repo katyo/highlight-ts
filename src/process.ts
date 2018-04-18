@@ -345,7 +345,7 @@ export function fixMarkup(options: Options, value: string) {
         });
 }
 
-const defaults: Options = {
+export const defaults: Options = {
     classPrefix: 'hljs-',
     tabReplace: undefined,
     useBr: false,
