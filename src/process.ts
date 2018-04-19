@@ -20,7 +20,7 @@ properties:
 - relevance (int)
 - value (an HTML string with highlighting markup)
 */
-export function highlight<Output>(options: Options, render: Renderer<Output>, lang: LanguageName, value: string, ignore_illegals?: boolean, continuation?: CompiledLanguageDef): Result<Output> {
+export function highlight<Output>(options: Options, render: Renderer<Output>, lang: LanguageName, value: string, ignore_illegals: boolean, continuation?: CompiledLanguageDef): Result<Output> {
     const output: Content<Output>[] = [{ content: [] }];
 
     function outContent(content: Output) {
@@ -38,7 +38,7 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
         outContent(render.text(text));
     };
 
-    function openSpan(className: string, noPrefix?: boolean) {
+    function openSpan(className: string, noPrefix: boolean) {
         if (!noPrefix) className = options.classPrefix + className;
         output.unshift({ className, content: [] });
     };
@@ -87,7 +87,7 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
 
             if (keyword_match) {
                 relevance += keyword_match[1];
-                openSpan(keyword_match[0]);
+                openSpan(keyword_match[0], false);
                 outText(match[0]);
                 closeSpan();
             } else {
@@ -99,17 +99,17 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
         outText(mode_buffer.substr(last_index));
     }
 
-    function processSubLanguage() {
-        const explicit = typeof top.subLanguage == 'string';
+    function processSubLanguage(subLanguage: LanguageName[]) {
+        const explicitLanguage = subLanguage.length == 1 && subLanguage[0];
 
-        if (explicit && !getLanguage(top.subLanguage as LanguageName)) {
+        if (explicitLanguage && !getLanguage(explicitLanguage)) {
             outText(mode_buffer);
             return;
         }
 
-        const result = explicit ?
-            highlight(options, render, top.subLanguage as string, mode_buffer, true, continuations[top.subLanguage as string]) :
-            highlightAuto(options, render, mode_buffer, top.subLanguage && top.subLanguage.length ? top.subLanguage as string[] : undefined);
+        const result = explicitLanguage ?
+            highlight(options, render, explicitLanguage, mode_buffer, true, continuations[explicitLanguage]) :
+            highlightAuto(options, render, mode_buffer, subLanguage.length ? top.subLanguage : undefined);
 
         // Counting embedded language score towards the host language may be disabled
         // with zeroing the containing mode relevance. Usecase in point is Markdown that
@@ -118,17 +118,17 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
         if (top.relevance > 0) {
             relevance += result.relevance;
         }
-        if (explicit && result.top) {
-            continuations[top.subLanguage as string] = result.top;
+        if (explicitLanguage && result.top) {
+            continuations[explicitLanguage] = result.top;
         }
-        openSpan(result.language as string, true);
+        openSpan(result.language as LanguageName, true);
         outContent(result.value);
         closeSpan();
     }
 
     function processBuffer() {
         if (top.subLanguage != null)
-            processSubLanguage();
+            processSubLanguage(top.subLanguage);
         else
             processKeywords();
         mode_buffer = '';
@@ -136,7 +136,7 @@ export function highlight<Output>(options: Options, render: Renderer<Output>, la
 
     function startNewMode(mode: CompiledSyntaxDef) {
         if (mode.className) {
-            openSpan(mode.className);
+            openSpan(mode.className, false);
         }
         top = Object.create(mode, { parent: { value: top } });
     }
@@ -302,23 +302,25 @@ export function highlightAuto<Output>(options: Options, render: Renderer<Output>
         value: render.text(text)
     };
 
-    let second_best: Result<Output> = result;
-    const languages = languageSubset.filter(getLanguage);
+    if (text != '') {
+        let second_best: Result<Output> = result;
+        const languages = languageSubset.filter(getLanguage);
 
-    for (const lang of languages) {
-        const current: Result<Output> = highlight(options, render, lang, text, false);
+        for (const lang of languages) {
+            const current: Result<Output> = highlight(options, render, lang, text, false);
 
-        if (current.relevance > second_best.relevance) {
-            second_best = current;
+            if (current.relevance > second_best.relevance) {
+                second_best = current;
+            }
+            if (current.relevance > result.relevance) {
+                second_best = result;
+                result = current;
+            }
         }
-        if (current.relevance > result.relevance) {
-            second_best = result;
-            result = current;
-        }
-    }
 
-    if (second_best.language) {
-        result.second_best = second_best;
+        if (second_best.language) {
+            result.second_best = second_best;
+        }
     }
 
     return result;
@@ -347,9 +349,9 @@ export function fixMarkup(options: Options, value: string) {
 
 export const defaults: Options = {
     classPrefix: 'hljs-',
-    tabReplace: undefined,
+    //tabReplace: undefined,
     useBr: false,
-    languages: undefined,
+    //languages: undefined,
 };
 
 export interface Highlighter<Output> {
@@ -365,6 +367,6 @@ export function init<Output>(render: Renderer<Output>, options: Partial<Options>
 }
 
 export function process<Output>({ render, options }: Highlighter<Output>, source: string, lang?: LanguageName | LanguageName[]): Result<Output> {
-    return typeof lang == 'string' ? highlight(options, render, lang, source) :
+    return typeof lang == 'string' ? highlight(options, render, lang, source, false) :
         highlightAuto(options, render, source, lang);
 }

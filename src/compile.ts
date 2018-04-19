@@ -56,6 +56,9 @@ export function compileLanguage(language: LanguageDef): CompiledLanguageDef {
             relevance: mode.relevance == null ? 1 : mode.relevance,
             contains: [],
             terminators: noneRe,
+            subLanguage: mode.subLanguage == null ? undefined :
+                typeof mode.subLanguage == 'string' ? [mode.subLanguage] :
+                    mode.subLanguage
         };
 
         cached_modes.push([mode, compiled]);
@@ -162,7 +165,6 @@ export function compileLanguage(language: LanguageDef): CompiledLanguageDef {
     const compiled: CompiledLanguageDef = compileMode(language) as CompiledLanguageDef;
 
     if (language.case_insensitive) compiled.case_insensitive = true;
-    if (language.subLanguage) compiled.subLanguage = language.subLanguage;
 
     return compiled;
 }

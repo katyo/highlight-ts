@@ -188,11 +188,11 @@ export interface CompiledSyntaxDef {
     returnEnd?: true;
 
     relevance: number;
+    subLanguage?: LanguageName[];
 }
 
 export interface CompiledLanguageDef extends CompiledSyntaxDef {
     case_insensitive?: true;
-    subLanguage?: LanguageName | LanguageName[];
 }
 
 export interface Result<Output> {
