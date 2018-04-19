@@ -1,6 +1,6 @@
 export default `function $initHighlight(block, cls) {
   try {
-    if (cls.search(/\bno\-highlight\b/) != -1)
+    if (cls.search(/\\bno\\-highlight\\b/) != -1)
       return process(block, true, 0x0F) +
              \` class="\${cls}"\`;
   } catch (e) {
