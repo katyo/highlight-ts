@@ -87,6 +87,6 @@ registerLanguages(
 );
 
 import './api';
-//import './detect';
 //import './markup';
+import './detect';
 //import './special';
