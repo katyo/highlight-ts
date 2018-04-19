@@ -18,6 +18,7 @@ export * from './languages/java';
 export * from './languages/glsl';
 export * from './languages/lua';
 export * from './languages/lisp';
+export * from './languages/llvm';
 export * from './languages/scheme';
 export * from './languages/matlab';
 export * from './languages/maxima';
