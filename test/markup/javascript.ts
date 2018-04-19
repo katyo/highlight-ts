@@ -1,3 +1,98 @@
+export default [
+    `function $initHighlight(block, cls) {
+  try {
+    if (cls.search(/\\bno\\-highlight\\b/) != -1)
+      return process(block, true, 0x0F) +
+             \` class="\${cls}"\`;
+  } catch (e) {
+    /* handle exception */
+  }
+  for (var i = 0 / 2; i < classes.length; i++) {
+    if (checkCondition(classes[i]) === undefined)
+      console.log('undefined');
+  }
+}
+
+export  $initHighlight;`,
+    `<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">$initHighlight</span>(<span class="hljs-params">block, cls</span>) </span>{
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">if</span> (cls.search(<span class="hljs-regexp">/\\bno\\-highlight\\b/</span>) != <span class="hljs-number">-1</span>)
+      <span class="hljs-keyword">return</span> process(block, <span class="hljs-literal">true</span>, <span class="hljs-number">0x0F</span>) +
+             <span class="hljs-string">\` class="<span class="hljs-subst">\${cls}</span>"\`</span>;
+  } <span class="hljs-keyword">catch</span> (e) {
+    <span class="hljs-comment">/* handle exception */</span>
+  }
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span> / <span class="hljs-number">2</span>; i &lt; classes.length; i++) {
+    <span class="hljs-keyword">if</span> (checkCondition(classes[i]) === <span class="hljs-literal">undefined</span>)
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">\'undefined\'</span>);
+  }
+}
+
+<span class="hljs-keyword">export</span>  $initHighlight;`
+];
+
+export const sample1 = [
+    `// This was mis-detected as HSP and Perl because parsing of
+// keywords in those languages allowed adjacent dots
+
+window.requestAnimationFrame(function render() {
+  var pos = state.pos;
+
+  canvasEl.width = 500;
+  canvasEl.height = 300;
+
+  if (dpad.right) {
+    pos.x += 3;
+  } else if (dpad.left) {
+    pos.x -= 3;
+  }
+
+  ctx.fillStyle = '#AF8452';
+  ctx.fillRect(pos.x + 5, pos.y - 10, 10, 10);
+
+  window.requestAnimationFrame(render);
+});`,
+    `<span class="hljs-comment">// This was mis-detected as HSP and Perl because parsing of</span>
+<span class="hljs-comment">// keywords in those languages allowed adjacent dots</span>
+
+<span class="hljs-built_in">window</span>.requestAnimationFrame(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> pos = state.pos;
+
+  canvasEl.width = <span class="hljs-number">500</span>;
+  canvasEl.height = <span class="hljs-number">300</span>;
+
+  <span class="hljs-keyword">if</span> (dpad.right) {
+    pos.x += <span class="hljs-number">3</span>;
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (dpad.left) {
+    pos.x -= <span class="hljs-number">3</span>;
+  }
+
+  ctx.fillStyle = <span class="hljs-string">\'#AF8452\'</span>;
+  ctx.fillRect(pos.x + <span class="hljs-number">5</span>, pos.y - <span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>);
+
+  <span class="hljs-built_in">window</span>.requestAnimationFrame(render);
+});`
+];
+
+export const short_plain = [
+    `const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+}`,
+    `<span class="hljs-keyword">const</span> cluster = <span class="hljs-built_in">require</span>(<span class="hljs-string">\'cluster\'</span>);
+<span class="hljs-keyword">const</span> numCPUs = <span class="hljs-built_in">require</span>(<span class="hljs-string">\'os\'</span>).cpus().length;
+
+<span class="hljs-keyword">if</span> (cluster.isMaster) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; numCPUs; i++) {
+    cluster.fork();
+  }
+}`
+];
+
 export const arrow_functions = [
     `var f = x => x;
 f(x => x + (y=2, z=undefined, ...rest) => y);

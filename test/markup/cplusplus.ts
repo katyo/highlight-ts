@@ -1,3 +1,69 @@
+export default [
+    `#include <iostream>
+
+int main(int argc, char *argv[]) {
+
+  /* An annoying "Hello World" example */
+  for (auto i = 0; i < 0xFFFF; i++)
+    cout << "Hello, World!" << endl;
+
+  char c = '\\n';
+  unordered_map <string, vector<string> > m;
+  m["key"] = "\\\\"; // this is an error
+
+  return -2e3 + 12l;
+}`,
+    `<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>{
+
+  <span class="hljs-comment">/* An annoying "Hello World" example */</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">0xFFFF</span>; i++)
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Hello, World!"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+  <span class="hljs-keyword">char</span> c = <span class="hljs-string">'\\n'</span>;
+  <span class="hljs-built_in">unordered_map</span> &lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; &gt; m;
+  m[<span class="hljs-string">"key"</span>] = <span class="hljs-string">"\\\\"</span>; <span class="hljs-comment">// this is an error</span>
+
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-2e3</span> + <span class="hljs-number">12l</span>;
+}`
+];
+
+export const comment = [
+    `/*
+To use this program, compile it -- if you can -- and then type something like:
+
+chan -n 5000 -d 2 < input.txt
+
+In this case, it will produce 5000 words of output, checking two-word groups.
+(The explanation above describes two-word generation. If you type "-d 3",
+the program will find three-word groups, and so on. Greater depths make more
+sense, but they require more input text and take more time to process.)
+
+http://www.eblong.com/zarf/markov/
+*/
+
+
+/* make cpp win deterministically over others with C block comments */
+cout << endl;`,
+    `<span class="hljs-comment">/*
+To use this program, compile it -- if you can -- and then type something like:
+
+chan -n 5000 -d 2 &lt; input.txt
+
+In this case, it will produce 5000 words of output, checking two-word groups.
+(The explanation above describes two-word generation. If you type "-d 3",
+the program will find three-word groups, and so on. Greater depths make more
+sense, but they require more input text and take more time to process.)
+
+http://www.eblong.com/zarf/markov/
+*/</span>
+
+
+<span class="hljs-comment">/* make cpp win deterministically over others with C block comments */</span>
+<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;`
+];
+
 export const expression_keywords = [
     `double x = exp(log(2)); // recognize built-ins
 return 0;  // recognize keyword that started the expression`,

@@ -1,3 +1,32 @@
+export default [
+    `grade = (student, period=(if b? then 7 else 6)) ->
+  if student.excellentWork
+    "A+"
+  else if student.okayStuff
+    if student.triedHard then "B" else "B-"
+  else
+    "C"
+
+class Animal extends Being
+  constructor: (@name) ->
+
+  move: (meters) ->
+    alert @name + " moved #{meters}m."`,
+    `<span class="hljs-function"><span class="hljs-title">grade</span> = <span class="hljs-params">(student, period=(<span class="hljs-keyword">if</span> b? <span class="hljs-keyword">then</span> <span class="hljs-number">7</span> <span class="hljs-keyword">else</span> <span class="hljs-number">6</span>))</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> student.excellentWork
+    <span class="hljs-string">"A+"</span>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> student.okayStuff
+    <span class="hljs-keyword">if</span> student.triedHard <span class="hljs-keyword">then</span> <span class="hljs-string">"B"</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"B-"</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-string">"C"</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Being</span></span>
+  constructor: <span class="hljs-function"><span class="hljs-params">(@name)</span> -&gt;</span>
+
+  move: <span class="hljs-function"><span class="hljs-params">(meters)</span> -&gt;</span>
+    alert @name + <span class="hljs-string">" moved <span class="hljs-subst">#{meters}</span>m."</span>`
+];
+
 export const division = [
     `# Divisions
 x = 6/foo/i

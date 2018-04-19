@@ -1,3 +1,38 @@
+export default [
+    `#[derive(Debug)]
+pub enum State {
+    Start,
+    Transient,
+    Closed,
+}
+
+impl From<&'a str> for State {
+    fn from(s: &'a str) -> Self {
+        match s {
+            "start" => State::Start,
+            "closed" => State::Closed,
+            _ => unreachable!(),
+        }
+    }
+}`,
+    `<span class="hljs-meta">#[derive(Debug)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">State</span></span> {
+    Start,
+    Transient,
+    Closed,
+}
+
+<span class="hljs-keyword">impl</span> <span class="hljs-built_in">From</span>&lt;&amp;<span class="hljs-symbol">'a</span> <span class="hljs-built_in">str</span>&gt; <span class="hljs-keyword">for</span> State {
+    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">from</span></span>(s: &amp;<span class="hljs-symbol">'a</span> <span class="hljs-built_in">str</span>) -&gt; <span class="hljs-keyword">Self</span> {
+        <span class="hljs-keyword">match</span> s {
+            <span class="hljs-string">"start"</span> =&gt; State::Start,
+            <span class="hljs-string">"closed"</span> =&gt; State::Closed,
+            _ =&gt; <span class="hljs-built_in">unreachable!</span>(),
+        }
+    }
+}`
+];
+
 export const comments = [
     `/* rust has
 /* nested /* block */ */

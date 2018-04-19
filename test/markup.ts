@@ -7,13 +7,13 @@ function testLanguageMode(language: LanguageName) {
         const lang_tests = tests[language];
 
         it(`should have tests`, () => {
-            should(lang_tests).be.an.Object()
+            should(lang_tests).be.an.Object();
         });
 
         for (const test in lang_tests) {
             it(`${test} should markup`, () => {
                 const [source, markup] = lang_tests[test];
-                const result = highlight(defaults, htmlRender, language, source);
+                const result = highlight(defaults, htmlRender, language, source, false);
 
                 result.value.trim().should.equal(markup.trim());
             });

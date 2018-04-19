@@ -1,3 +1,34 @@
+export default [
+    `class MyClass {
+  public static myValue: string;
+  constructor(init: string) {
+    this.myValue = init;
+  }
+}
+import fs = require("fs");
+module MyModule {
+  export interface MyInterface extends Other {
+    myProperty: any;
+  }
+}
+declare magicNumber number;
+myArray.forEach(() => { }); // fat arrow syntax`,
+    `<span class="hljs-keyword">class</span> MyClass {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> myValue: <span class="hljs-built_in">string</span>;
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params">init: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">this</span>.myValue = init;
+  }
+}
+<span class="hljs-keyword">import</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">"fs"</span>);
+<span class="hljs-keyword">module</span> MyModule {
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">MyInterface</span> <span class="hljs-title">extends</span> <span class="hljs-title">Other</span> {
+    myProperty: <span class="hljs-built_in">any</span>;
+  }
+}
+<span class="hljs-keyword">declare</span> magicNumber <span class="hljs-built_in">number</span>;
+myArray.forEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { }); <span class="hljs-comment">// fat arrow syntax</span>`
+];
+
 export const classes = [
     `class Car extends Vehicle {
   constructor(speed, cost) {

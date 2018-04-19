@@ -1,3 +1,38 @@
+export default [
+    `/**
+ * @author John Smith <john.smith@example.com>
+*/
+package l2f.gameserver.model;
+
+public abstract class L2Char extends L2Object {
+  public static final Short ERROR = 0x0001;
+
+  public void moveTo(int x, int y, int z) {
+    _ai = null;
+    log("Should not be called");
+    if (1 > 5) { // wtf!?
+      return;
+    }
+  }
+}`,
+    `<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> John Smith &lt;john.smith@example.com&gt;
+*/</span>
+<span class="hljs-keyword">package</span> l2f.gameserver.model;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">L2Char</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">L2Object</span> </span>{
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Short ERROR = <span class="hljs-number">0x0001</span>;
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">moveTo</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> z)</span> </span>{
+    _ai = <span class="hljs-keyword">null</span>;
+    log(<span class="hljs-string">"Should not be called"</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> &gt; <span class="hljs-number">5</span>) { <span class="hljs-comment">// wtf!?</span>
+      <span class="hljs-keyword">return</span>;
+    }
+  }
+}`
+];
+
 export const gh1031 = [
     `public class DefaultDataDaoImpl {
   private List<AbstractCmrDataProcessor> cmrDataProcessors;
