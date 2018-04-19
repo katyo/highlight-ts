@@ -16,7 +16,17 @@ export const HTTP: LanguageDef = {
     contains: [
         {
             begin: '^' + VERSION, end: '$',
-            contains: [{ className: 'number', begin: '\\b\\d{3}\\b' }]
+            contains: [
+                {
+                    className: 'number',
+                    begin: '\\b\\d{3}\\b'
+                },
+                {
+                    className: 'string',
+                    begin: '\\b[A-Za-z]+',
+                    end: '$',
+                },
+            ]
         },
         {
             begin: '^[A-Z]+ (.*?) ' + VERSION + '$', returnBegin: true, end: '$',
@@ -27,7 +37,7 @@ export const HTTP: LanguageDef = {
                     excludeBegin: true, excludeEnd: true
                 },
                 {
-                    begin: VERSION
+                    begin: VERSION,
                 },
                 {
                     className: 'keyword',
