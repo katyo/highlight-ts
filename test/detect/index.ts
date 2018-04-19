@@ -1,6 +1,6 @@
-type LanguageName = string;
-type TestName = string;
-type TestContent = string;
+export type LanguageName = string;
+export type TestName = string;
+export type TestContent = string;
 
 export const tests: Record<LanguageName, Record<TestName, TestContent>> = {
     'accesslog': require('./accesslog'),

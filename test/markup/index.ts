@@ -1,4 +1,9 @@
-export const tests = {
+export type LanguageName = string;
+export type TestName = string;
+export type TestSource = string;
+export type TestMarkup = string;
+
+export const tests: Record<LanguageName, Record<TestName, [TestSource, TestMarkup]>> = {
     'accesslog': require('./accesslog'),
     'bash': require('./bash'),
     'cmake': require('./cmake'),
