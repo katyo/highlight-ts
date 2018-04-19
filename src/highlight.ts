@@ -54,6 +54,7 @@ export * from './languages/yaml';
 
 // markup modes
 export * from './languages/css';
+export * from './languages/less';
 export * from './languages/scss';
 export * from './languages/xml';
 export * from './languages/markdown';
