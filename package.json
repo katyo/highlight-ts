@@ -1,6 +1,6 @@
 {
   "name": "highlight-ts",
-  "version": "9.12.0",
+  "version": "9.12.1-1",
   "description": "Highlight.JS in TypeScript (and ES6).",
   "main": "highlight.js",
   "typings": "highlight.d.ts",
@@ -12,7 +12,8 @@
     "clean-es": "rm -rf es",
     "compile-js": "tsc --outDir .",
     "clean-js": "rm -rf *.d.ts *.js *.js.map render languages",
-    "prepublish": "npm run compile",
+    "prepack": "npm run compile",
+    "postpack": "npm run clean",
     "compile-test": "browserify -d test/index.ts -p [ tsify --noImplicitAny ] -o test-out.js",
     "clean-test": "rm -f test-out.js",
     "test": "testem ci",
@@ -35,17 +36,17 @@
     "url": "https://github.com/katyo/literium/issues"
   },
   "devDependencies": {
-    "@types/mocha": "^5.0.0",
-    "@types/node": "^9.4.6",
-    "browserify": "^16.1.1",
-    "mocha": "^5.0.3",
-    "should": "^13.2.1",
-    "testem": "^2.0.0",
-    "ts-node": "^5.0.1",
-    "tsify": "^3.0.3",
-    "typescript": "^2.8.1"
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^8",
+    "browserify": "^16.2.2",
+    "mocha": "^5.2.0",
+    "should": "^13.2.3",
+    "testem": "^2.9.3",
+    "ts-node": "^7",
+    "tsify": "^4",
+    "typescript": "^3"
   },
   "dependencies": {
-    "tslib": "^1.9.0"
+    "tslib": "^1.9.3"
   }
 }
