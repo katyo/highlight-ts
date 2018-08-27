@@ -3,10 +3,7 @@ export * from './common';
 export * from './languages';
 export * from './compile';
 export * from './process';
-//export * from './render/vdom';
 export * from './render/html';
-
-export * from './highlight';
 
 // programming modes
 export * from './languages/cplusplus';
