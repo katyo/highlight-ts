@@ -1,6 +1,6 @@
 {
   "name": "highlight-ts",
-  "version": "9.12.0",
+  "version": "9.12.0-1",
   "description": "Highlight.JS in TypeScript (and ES6).",
   "main": "highlight.js",
   "typings": "highlight.d.ts",
