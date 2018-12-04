@@ -1,6 +1,6 @@
 {
   "name": "highlight-ts",
-  "version": "9.12.1-1",
+  "version": "9.12.1-2",
   "description": "Highlight.JS in TypeScript (and ES6).",
   "main": "highlight.js",
   "typings": "highlight.d.ts",
@@ -36,17 +36,17 @@
     "url": "https://github.com/katyo/literium/issues"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.5",
+    "@types/mocha": "^5",
     "@types/node": "^8",
-    "browserify": "^16.2.2",
-    "mocha": "^5.2.0",
-    "should": "^13.2.3",
-    "testem": "^2.9.3",
+    "browserify": "^16",
+    "mocha": "^5",
+    "should": "^13",
+    "testem": "^2",
     "ts-node": "^7",
     "tsify": "^4",
     "typescript": "^3"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1"
   }
 }
